@@ -1,0 +1,26 @@
+.time-tracker{
+    display: flex;
+    width: 100%;
+    max-width: 360px;
+    margin: 0 auto;
+    justify-content: space-between;
+    .additional-wrapper{
+        display: flex;
+        width: 50%;
+        justify-content: space-between;
+    }
+    &__name{
+        margin-right: 20px;
+    }
+    &__time{
+        margin-right: 20px;
+    }
+    &__icons{
+        img{
+            cursor: pointer;
+        }
+        img:first-child{
+            margin-right: 10px;
+        }
+    }
+}

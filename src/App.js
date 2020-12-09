@@ -1,25 +1,45 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import TimeTracker from "./components/TimeTracker/index";
+import { connect } from "react-redux";
+import { addTimeTrackerAC } from "./redux/timeTrackerReducer";
+import moment from "moment";
+//Styles
+import "./App.scss";
+import play_icon from "./assets/play_circle.svg";
 
-function App() {
+function App({ time_trackers, addTimeTrackerAC }) {
+  const [timeTrackerName, setTimeTrackerName] = useState('')
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>tracker</h1>
+      <div className="time-tracker-wrapper">
+        <input type="text"  onChange={(e)=>{setTimeTrackerName(e.target.value)}} value={timeTrackerName}/>
+        <div className="time-tracker-wrapper__btn">
+          <img
+            src={play_icon}
+            alt="play"
+            onClick={() => {
+  
+              addTimeTrackerAC({ id: Date.now(), name: timeTrackerName, startTime: new Date().getTime() });
+              setTimeTrackerName('')
+            }}
+          />
+        </div>
+      </div>
+      <div className="timer-list">
+        {time_trackers.map((el, key) => {
+          return <TimeTracker key={key} id={el.id} startTime={el.startTime} name={el.name} />;
+        })}
+      </div>
     </div>
   );
 }
+const mapStateToProps = (state) => {
+  return {
+    time_trackers: state.timeTrackerPage.time_trackers,
+  };
+};
 
-export default App;
+export default connect(mapStateToProps, {
+  addTimeTrackerAC,
+})(App);
