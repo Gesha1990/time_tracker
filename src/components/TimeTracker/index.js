@@ -9,7 +9,7 @@ import pause_icon from "../../assets/pause_circle.svg";
 import play_icon from "../../assets/play.svg";
 import delete_icon from "../../assets/delete.svg";
 
-const TimeTracker = ({ id, addTimeTrackerAC, startTime, deleteTimeTrackerAC, name }) => {
+const TimeTracker = ({ id, startTime, deleteTimeTrackerAC, name }) => {
   const endTime = new Date().getTime();
   const [time, addTime] = useState(endTime - startTime);
   const [intervalId, setIntervalId] = useState(null);
@@ -34,7 +34,7 @@ const TimeTracker = ({ id, addTimeTrackerAC, startTime, deleteTimeTrackerAC, nam
   }, [isStoppedTimeTracker]);
 
   return (
-    <div className="time-tracker">
+    <div className={`time-tracker ${!isStoppedTimeTracker && 'active'}`}>
       <div className="time-tracker__name">{name}</div>
       <div className="additional-wrapper">
         <div className="time-tracker__time">

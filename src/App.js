@@ -8,27 +8,60 @@ import "./App.scss";
 import play_icon from "./assets/play_circle.svg";
 
 function App({ time_trackers, addTimeTrackerAC }) {
-  const [timeTrackerName, setTimeTrackerName] = useState('')
+  debugger;
+  const [timeTrackerName, setTimeTrackerName] = useState("");
   return (
     <div className="App">
       <h1>tracker</h1>
       <div className="time-tracker-wrapper">
-        <input type="text"  onChange={(e)=>{setTimeTrackerName(e.target.value)}} value={timeTrackerName}/>
+        <input
+          type="text"
+          onChange={(e) => {
+            setTimeTrackerName(e.target.value);
+          }}
+          value={timeTrackerName}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              addTimeTrackerAC({
+                id: Date.now(),
+                name:
+                  timeTrackerName.length > 0
+                    ? timeTrackerName
+                    : `No name tracker #${time_trackers.length + 1}`,
+                startTime: new Date().getTime(),
+              });
+              setTimeTrackerName("");
+            }
+          }}
+        />
         <div className="time-tracker-wrapper__btn">
           <img
             src={play_icon}
             alt="play"
             onClick={() => {
-  
-              addTimeTrackerAC({ id: Date.now(), name: timeTrackerName, startTime: new Date().getTime() });
-              setTimeTrackerName('')
+              addTimeTrackerAC({
+                id: Date.now(),
+                name:
+                  timeTrackerName.length > 0
+                    ? timeTrackerName
+                    : `No name tracker #${time_trackers.length + 1}`,
+                startTime: new Date().getTime(),
+              });
+              setTimeTrackerName("");
             }}
           />
         </div>
       </div>
       <div className="timer-list">
         {time_trackers.map((el, key) => {
-          return <TimeTracker key={key} id={el.id} startTime={el.startTime} name={el.name} />;
+          return (
+            <TimeTracker
+              key={el.id}
+              id={el.id}
+              startTime={el.startTime}
+              name={el.name}
+            />
+          );
         })}
       </div>
     </div>

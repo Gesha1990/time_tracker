@@ -10,12 +10,12 @@ const timeTrackerReducer = (state = initialState, action) => {
     case ADD_TIME_TRACKER: {
       return {
         time_trackers: [
-          ...state.time_trackers,
+         
           {
             id: action.time_tracker.id,
             startTime: action.time_tracker.startTime,
             name: action.time_tracker.name
-          },
+          }, ...state.time_trackers,
         ],
       };
     }
