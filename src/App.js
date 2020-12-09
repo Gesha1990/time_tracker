@@ -2,13 +2,11 @@ import React, { useState } from "react";
 import TimeTracker from "./components/TimeTracker/index";
 import { connect } from "react-redux";
 import { addTimeTrackerAC } from "./redux/timeTrackerReducer";
-import moment from "moment";
 //Styles
 import "./App.scss";
 import play_icon from "./assets/play_circle.svg";
 
 function App({ time_trackers, addTimeTrackerAC }) {
-  debugger;
   const [timeTrackerName, setTimeTrackerName] = useState("");
   return (
     <div className="App">
